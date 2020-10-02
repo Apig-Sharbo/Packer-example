@@ -1,0 +1,26 @@
+{
+    "variables": {
+        "region": "eu-central-1"
+    },
+    "builders": [{
+        "type": "amazon-ebs",
+        "profile": "terraform",
+        "region": "eu-central-1",
+        "ami_name": "packer-linux-{{timestamp}}",
+        "instance_type": "t2.micro",
+        "source_ami_filter": {
+            "filters": {
+                "virtualization-type": "hvm",
+                "name": "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*",
+                "root-device-type": "ebs"
+            },
+            "owners": ["099720109477"],
+            "most_recent": true
+        },
+        "ssh_username": "ubuntu"
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "inline": "echo 'Hello there!'"
+    }]
+}
